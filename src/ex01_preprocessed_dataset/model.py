@@ -17,7 +17,7 @@ def model(X: np.ndarray, y: np.ndarray):
     train(X , y) """
 
     #clf.predict([[2., 2.]])
-learning_rate=0.01
+learning_rate=0.009
 epochs=70
 df = pd.read_parquet('preprocessed_bank_marketing.gzip')
 features_names = ['age', 'balance', 'duration', 'job', 'loan', 'pdays']

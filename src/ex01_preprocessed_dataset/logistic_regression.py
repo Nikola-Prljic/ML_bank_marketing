@@ -26,9 +26,9 @@ def create_model(my_inputs: dict, my_learning_rate: int) -> keras.Model:
 
     # Create Model and use a more accurate loss
     model = keras.Model(inputs=my_inputs, outputs=output)
-    model.compile(optimizer=tf.keras.optimizers.experimental.RMSprop(learning_rate=my_learning_rate),
-                  loss=tf.keras.losses.BinaryCrossentropy(),
-                  metrics=[tf.keras.metrics.AUC(num_thresholds=100, name='auc'),])
+    model.compile(optimizer=keras.optimizers.experimental.RMSprop(learning_rate=my_learning_rate),
+                  loss=keras.losses.BinaryCrossentropy(),
+                  metrics=[keras.metrics.AUC(num_thresholds=80, name='auc'),])
     
     #log_dir = "logs/fit/" + datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
     #tensorboard_callback = keras.callbacks.TensorBoard(log_dir=log_dir, histogram_freq=1)
