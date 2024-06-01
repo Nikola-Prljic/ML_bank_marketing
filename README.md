@@ -1,2 +1,2 @@
-# ML_bank_marketing
+# Maschine learing bank marketing
 Machine learning Model with bank marketing data set to find out if client will subscribe. For iMooX curse.
