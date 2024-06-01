@@ -2,6 +2,7 @@
 __pycache__/
 *.py[cod]
 *$py.class
+tasks_mox
 
 # C extensions
 *.so
