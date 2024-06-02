@@ -8,7 +8,7 @@ import numpy as np
 import datetime
 import keras
 from clean_data import get_input_layers
-
+import matplotlib.pyplot as plt
 
 def create_model(my_inputs: dict, my_learning_rate: int) -> keras.Model:
     
@@ -16,9 +16,9 @@ def create_model(my_inputs: dict, my_learning_rate: int) -> keras.Model:
     concatenated_inputs = layers.Concatenate()(my_inputs.values())
     
     # Create hidden neural network layers
-    x = layers.Dense(80, activation='sigmoid', name='32')(concatenated_inputs)
-    x = layers.Dense(40, activation='sigmoid', name='16')(x)
-    x = layers.Dense(20, activation='sigmoid', name='163')(x)
+    x = layers.Dense(80, input_shape=(len(my_inputs),), activation='relu', name='32')(concatenated_inputs)
+    x = layers.Dense(40, activation='relu', name='16')(x)
+    x = layers.Dense(20, activation='relu', name='163')(x)
     x = layers.Dropout(rate=0.6, name='dropout')(x)
 
     # Create output layer because we have 4 possibilities
@@ -57,15 +57,17 @@ def evaluate_model(model: keras.Model, train_df, test_df, test_label):
     # Evaluate create features dict
     test_features = {name:np.array(value) for name, value in test_df.items()}
     print('------------Evaluated Model------------')
-    model.evaluate(test_features, test_label, batch_size=10)
+    model.evaluate(test_features, test_label, batch_size=100, use_multiprocessing=True)
 
     # Predict and small test
     features = {name:np.array(value) for name, value in train_df.items()}
-    predict = model.predict(features)
+    predict_res = np.array(model.predict(features))
+    plt.scatter(predict_res, np.arange(start=0, stop=predict_res.size))
+    plt.show()
     #predict = np.argmax(predict[:1000], axis=1)
     #houses_dict = {0: 'no', 1: 'yes'}
     #predict = [houses_dict[house] for house in list(predict)]
-    print(predict)
+    print(predict_res.max())
 
 def logisticRegression(df, features_names, learning_rate, epochs, batch_size=10, split=0.8):
     
