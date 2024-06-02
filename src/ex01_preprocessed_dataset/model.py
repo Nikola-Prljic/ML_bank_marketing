@@ -20,7 +20,9 @@ def model(X: np.ndarray, y: np.ndarray):
 learning_rate=0.009
 epochs=70
 df = pd.read_parquet('preprocessed_bank_marketing.gzip')
-features_names = ['age', 'balance', 'duration', 'job', 'loan', 'pdays']
+#df = df.dropna()
+df = df.sample(n=40000)
+features_names = ['age', 'balance', 'duration', 'job', 'loan']
 model, epochs, hist = logisticRegression(df, features_names, learning_rate=learning_rate, epochs=epochs, batch_size=600, split=0.9)
 plt.plot(epochs, hist['auc'], color='r', label='AUC')
 plt.title('AUC OVER EPOCHS')

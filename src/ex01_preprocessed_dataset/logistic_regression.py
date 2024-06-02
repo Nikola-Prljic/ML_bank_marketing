@@ -16,9 +16,9 @@ def create_model(my_inputs: dict, my_learning_rate: int) -> keras.Model:
     concatenated_inputs = layers.Concatenate()(my_inputs.values())
     
     # Create hidden neural network layers
-    x = layers.Dense(64, activation='sigmoid', name='32')(concatenated_inputs)
-    x = layers.Dense(32, activation='sigmoid', name='16')(x)
-    x = layers.Dense(16, activation='sigmoid', name='163')(x)
+    x = layers.Dense(80, activation='sigmoid', name='32')(concatenated_inputs)
+    x = layers.Dense(40, activation='sigmoid', name='16')(x)
+    x = layers.Dense(20, activation='sigmoid', name='163')(x)
     x = layers.Dropout(rate=0.6, name='dropout')(x)
 
     # Create output layer because we have 4 possibilities
