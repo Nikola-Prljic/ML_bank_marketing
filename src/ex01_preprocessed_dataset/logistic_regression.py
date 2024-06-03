@@ -61,13 +61,21 @@ def evaluate_model(model: keras.Model, train_df, test_df, test_label):
 
     # Predict and small test
     features = {name:np.array(value) for name, value in train_df.items()}
-    predict_res = np.array(model.predict(features))
-    plt.scatter(predict_res, np.arange(start=0, stop=predict_res.size))
+    predict_res = np.array(model.predict(features)).flatten()
+    yes = [num for num in predict_res if num >= 0.6]
+    no = [num for num in predict_res if num < 0.6]
+    col = np.where(predict_res >= 0.6, 'r', 'g')
+    #print(yes)
+    plt.scatter(predict_res, np.arange(0, predict_res.size), color=col)
+    #plt.hist(yes)
+    #plt.hist(no)
+    #cola = np.where(predict_res >= 0.6, 'N', 'Y')
+    #plt.pie(cola, labels=['N', 'Y'], autopct='%1.1f%%', startangle=140)
     plt.show()
     #predict = np.argmax(predict[:1000], axis=1)
     #houses_dict = {0: 'no', 1: 'yes'}
     #predict = [houses_dict[house] for house in list(predict)]
-    print(predict_res.max())
+    #print(predict_res[0:1000])
 
 def logisticRegression(df, features_names, learning_rate, epochs, batch_size=10, split=0.8):
     
